@@ -9,6 +9,7 @@
 //Globals
 GameState* state = nullptr;
 
+//Functions
 void init();
 void destroy();
 void run();
@@ -16,7 +17,7 @@ void handleInput();
 void update();
 void render();
 
-//Debug
+//Debu 
 #include <string>
 
 int main(void){
