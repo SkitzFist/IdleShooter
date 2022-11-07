@@ -42,6 +42,9 @@ void destroy(){
     emscripten_cancel_main_loop();
     std::string str = "Main loop cancelled";
     TraceLog(LOG_INFO, str.c_str());
+    CloseWindow();
+    str = "Window closed";
+    TraceLog(LOG_INFO, str.c_str());
 }
 
 void run(){

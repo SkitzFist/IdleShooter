@@ -1,4 +1,5 @@
 #include "TestState.h"
+#include "SquareBodyPart.h"
 #include "Log.h"
 
 TestState::TestState(){
@@ -16,12 +17,16 @@ GameState* TestState::handleInput(){
         delete this;
         return nullptr;
     }
+
+    if(IsKeyPressed(KEY_SPACE)){
+        player->equip(new SquareBodyPart());
+    }
     return state;
 }
 
 GameState* TestState::update(const float _dt){
     GameState* state = this;
-
+    player->update(_dt);
     return state;
 }
 

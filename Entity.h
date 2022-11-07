@@ -2,7 +2,7 @@
 #ifndef _Entity
 #define _Entity
 #include "GameObject.h"
-#include "Body.h"
+#include "BodyPart.h"
 #include "Array.h"
 
 /*
@@ -14,11 +14,12 @@ class Entity : public GameObject{
 public:
     Entity();
     ~Entity();
+    virtual void update(const float _dt) override;
     virtual void draw() const override;
-    void equip(Body* _body);
+    void equip(BodyPart* _body);
 
 private:
-    Array<Body*> m_bodies;
+    Array<BodyPart*> m_bodies;
 };
 
 #endif

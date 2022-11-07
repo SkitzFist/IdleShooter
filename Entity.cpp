@@ -7,7 +7,16 @@ Entity::Entity()
 }
 
 Entity::~Entity(){
+    for(int i = 0; i < m_bodies.size(); ++i){
+        delete m_bodies[i];
+    }
     m_bodies.clear();
+}
+
+void Entity::update(const float _dt){
+    for(int i = 0; i < m_bodies.size(); ++i){
+        m_bodies[i]->update(_dt);
+    }
 }
 
 void Entity::draw() const{
@@ -16,7 +25,8 @@ void Entity::draw() const{
     }
 }
 
-void Entity::equip(Body* _body){
+void Entity::equip(BodyPart* _body){
     _body->onEquip(this);
     m_bodies.add(_body);
+    Log::info("BodyParts equipped: " + std::to_string(m_bodies.size()));
 }
