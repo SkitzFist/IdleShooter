@@ -3,11 +3,19 @@
 //Settings
 #include "Settings.h"
 
+//Util
+#include "Array.h"
+
+//objects
+#include "Player.h"
+
 //States
 #include "TestState.h"
 
 //Globals
 GameState* state = nullptr;
+Array<Entity*> entities(20);
+Array<GameObject*> gameObjects(30);
 
 //Functions
 void init();
@@ -22,7 +30,7 @@ void render();
 
 int main(void){
     init();
-    emscripten_set_main_loop(run, 0,1);
+    emscripten_set_main_loop(run, 0, 1);
 }
 
 void init(){

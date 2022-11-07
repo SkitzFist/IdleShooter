@@ -2,11 +2,11 @@
 #include "Log.h"
 
 TestState::TestState(){
-    Log::info("TestState Created");
+    player = new Player({200,100});
 }
 
 TestState::~TestState(){
-    Log::info("TestState destroyed");
+    delete player;
 }
 
 GameState* TestState::handleInput(){
@@ -26,5 +26,5 @@ GameState* TestState::update(const float _dt){
 }
 
 void TestState::render()const{
-
+    player->draw();
 }

@@ -3,6 +3,7 @@
 #define _TestState
 
 #include "GameState.h"
+#include "Player.h"
 
 class TestState : public GameState{
 public:
@@ -13,7 +14,7 @@ public:
     virtual void render() const override;
     
 private:
-
+    Entity* player;
 };
 
 #endif
