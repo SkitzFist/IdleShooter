@@ -1,27 +1,35 @@
 #include "Timer.h"
 
 Timer::Timer(const float _target){
-    m_target = _target;
-    m_acumulated = 0.f;
+    m_duration = _target;
+    m_elapsed = 0.f;
 }
 
 void Timer::update(const float _dt){
-    m_acumulated += _dt;
+    m_elapsed += _dt;
 }
 
-const float Timer::getAcumulated() const{
-    return m_acumulated;
+const float& Timer::getElapsed() const{
+    return m_elapsed;
 }
 
-const bool Timer::isFinished() const{
-    return m_acumulated >= m_target;
+const float Timer::getTime() const{
+    return m_elapsed / m_duration;
+}
+
+const float& Timer::getDuration() const{
+    return m_duration;
+}
+
+const bool& Timer::isFinished() const{
+    return m_elapsed >= m_duration;
 }
 
 void Timer::reset(){
-    m_acumulated = 0.f;
+    m_elapsed = 0.f;
 }
 
 void Timer::reset(float _newTarget){
-    m_acumulated = 0.f;
-    m_target = _newTarget;
+    m_elapsed = 0.f;
+    m_duration = _newTarget;
 }
