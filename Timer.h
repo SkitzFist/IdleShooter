@@ -9,7 +9,7 @@ public:
     const float& getElapsed() const;
     const float getTime() const;
     const float& getDuration() const;
-    const bool& isFinished() const;
+    const bool isFinished() const;
     void reset();
     void reset(float _newTarget);
 private:

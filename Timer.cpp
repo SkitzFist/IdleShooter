@@ -21,7 +21,7 @@ const float& Timer::getDuration() const{
     return m_duration;
 }
 
-const bool& Timer::isFinished() const{
+const bool Timer::isFinished() const{
     return m_elapsed >= m_duration;
 }
 
