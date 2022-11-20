@@ -13,7 +13,7 @@ Entity::~Entity(){
 
 void Entity::update(const float _dt){
     for(int i = 0; i < m_bodies.size(); ++i){
-        m_bodies[i]->update(_dt, getPositon());
+        m_bodies[i]->update(_dt);
     }
 }
 

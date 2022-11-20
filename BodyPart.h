@@ -4,21 +4,21 @@
 
 #include "Vec2.h"
 #include "Boundry.h"
+#include "GameObject.h"
 
 class Entity;
 
-class BodyPart{
+class BodyPart : public GameObject{
 public:
     BodyPart(){}
     virtual ~BodyPart(){}
     virtual void onEquip(Entity* entity) = 0;
-    virtual void draw() const = 0;
-    virtual void update(const float _dt, const Vec2<float>& _pos) = 0;
-    virtual void onCollision(Entity* _other) = 0;
-    const Boundry& getBoundry() const { return m_boundry; }
-protected:
-    Boundry m_boundry;
+    virtual void draw() const override {/*For subclasses*/};
+    virtual void update(const float _dt) override {/*For subclasses*/};
+    virtual void onCollision(GameObject* _other) override {/*For subclasses*/};
+    virtual const float getRadius() const override {return m_boundry.radius;}
 private:
+
 };
 
 #endif
