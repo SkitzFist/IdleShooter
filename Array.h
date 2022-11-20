@@ -38,8 +38,10 @@ Array<T>::Array(unsigned int _capacity)
 
 template <class T>
 Array<T>::~Array(){
-    clear();
-    ::operator delete(m_data);
+    if(m_capacity > 0){
+        clear();
+        ::operator delete(m_data);
+    }
 }
 
 template <class T>
