@@ -1,55 +1,46 @@
 #include "SquareBodyPart.h"
-
-//debug
-#include "Log.h"
-#include "Timer.h"
+#include "Utility.h"
 #include "Lerp.h"
+#include "Entity.h"
 
 SquareBodyPart::SquareBodyPart() :
-    m_angle(0){
-
+    m_timer(1.f), m_angleStart(45.f), m_angleTarget((360.f - m_angleStart) * 3.f), m_sizeFactor(0.f),
+    m_sizeStart(2.f), m_sizeTarget(4.f), m_baseRadius(0.f){
 }
 
 SquareBodyPart::~SquareBodyPart(){
 }
 
-float lerpAngle(float a, float b, const float _dt){
-    return (a + ((b-a) * _dt));
-}
+void SquareBodyPart::update(const float _dt, const Vec2<float>& _pos){
+    m_timer.update(_dt);
+    if(m_timer.isFinished()){
+        m_timer.reset();
+        Utility::swap(m_sizeStart, m_sizeTarget);
+        Utility::swap(m_angleStart, m_angleTarget);
+    }else{
+        float sizeTime = Lerp::smoothStep2(m_timer.getTime());
+        m_sizeFactor = Lerp::lerp(sizeTime, m_sizeStart, m_sizeTarget);
+        float angleTime = Lerp::smoothStep(m_timer.getTime()) / 2.f;
+        m_boundry.angle = Lerp::lerp(angleTime, m_angleStart, m_angleTarget);
+    }
 
-float lerpAngleGoal(float targetValue, float duration, float elapsedTime){
-    return (targetValue * (elapsedTime / duration));
-}
-
-void SquareBodyPart::update(const float _dt){
-    static Timer timer;
-    timer.update(_dt);
-    m_angle = lerpAngle(0.f, 360.f, timer.getAcumulated());
+    rec = {
+        _pos.x,
+        _pos.y,
+        m_sizeFactor * 10.f,
+        m_sizeFactor * 10.f
+    };
 }
 
 void SquareBodyPart::onEquip(Entity* _entity){
     
 }
 
-void SquareBodyPart::draw(const Vec2<float>& _pos, int _radius)const{
-    Vec2<float> origin = {
-        _pos.x,
-        _pos.y
-    };
-
-    Vec2<float> size = {
-        _radius * 4.f,
-        _radius * 4.f
-    };
-
-    Rectangle rec = {
-        static_cast<float>(_pos.x),
-        static_cast<float>(_pos.y),
-        static_cast<float>(size.x),
-        static_cast<float>(size.y)
-    };
-
-    DrawRectanglePro(rec, Vector2{rec.width / 2, rec.height / 2}, m_angle, GREEN);
-    DrawRectanglePro(rec, Vector2{rec.width / 2, rec.height / 2}, -m_angle, GREEN);
+void SquareBodyPart::onCollision(Entity* _other){
     
+}
+
+void SquareBodyPart::draw()const{
+    DrawRectanglePro(rec, Vector2{rec.width / 2, rec.height / 2}, m_boundry.angle, GREEN);
+    DrawRectanglePro(rec, Vector2{rec.width / 2, rec.height / 2}, (-m_boundry.angle - 45.f), GREEN); 
 }

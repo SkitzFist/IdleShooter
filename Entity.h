@@ -17,7 +17,7 @@ public:
     virtual void update(const float _dt) override;
     virtual void draw() const override;
     void equip(BodyPart* _body);
-
+    virtual const float getRadius() const override;
 private:
     Array<BodyPart*> m_bodies;
 };

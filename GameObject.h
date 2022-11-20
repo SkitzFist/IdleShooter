@@ -2,6 +2,7 @@
 #ifndef _GameObject
 #define _GameObject
 #include "Vec2.h"
+#include "Boundry.h"
 
 class GameObject{
 public:
@@ -10,9 +11,12 @@ public:
     const Vec2<float>& getPositon() const;
     virtual void update(const float _dt) = 0;
     virtual void draw() const = 0;
+
+    virtual const float getRadius() const = 0;
+    const Boundry& getBoundry() const { return m_boundry; }
 protected:
     GameObject(){};
-
+    Boundry m_boundry;
 private:
     Vec2<float> m_position;
 };
