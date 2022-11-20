@@ -25,7 +25,7 @@ public:
     ~EventManager();
     template <typename T> static void const addHandler(Object* handler);
     template <typename T> static void FireEvent(const T& event);
-    template <typename T> static void removeHandler(Object* handler);
+    template <typename T> static void removeHandler(Object* handler); //TODO:: Change to own identifier instead, if obj is in an array and the array moves to another memoryblock, the handler would not be removed
 
 private:
     EventManager();
