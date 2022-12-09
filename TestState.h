@@ -4,6 +4,8 @@
 
 #include "GameState.h"
 #include "Player.h"
+#include "Array.h"
+#include "Particle.h"
 
 class TestState : public GameState{
 public:
@@ -15,6 +17,7 @@ public:
     
 private:
     Entity* player;
+    Array<Particle> m_particles;
 };
 
 #endif
