@@ -3,6 +3,12 @@
 //Settings
 #include "Settings.h"
 
+//Util
+#include "Array.h"
+
+//objects
+#include "Player.h"
+
 //States
 #include "TestState.h"
 
@@ -22,7 +28,7 @@ void render();
 
 int main(void){
     init();
-    emscripten_set_main_loop(run, 0,1);
+    emscripten_set_main_loop(run, 0, 1);
 }
 
 void init(){
@@ -33,6 +39,9 @@ void init(){
 void destroy(){
     emscripten_cancel_main_loop();
     std::string str = "Main loop cancelled";
+    TraceLog(LOG_INFO, str.c_str());
+    CloseWindow();
+    str = "Window closed";
     TraceLog(LOG_INFO, str.c_str());
 }
 
