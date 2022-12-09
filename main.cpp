@@ -14,8 +14,6 @@
 
 //Globals
 GameState* state = nullptr;
-Array<Entity*> entities(20);
-Array<GameObject*> gameObjects(30);
 
 //Functions
 void init();

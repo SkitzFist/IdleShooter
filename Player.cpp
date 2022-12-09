@@ -2,9 +2,9 @@
 #include "PlayerSettings.h"
 
 Player::Player(const Vec2<float>& _startPos){
-    setPosition(_startPos);
     m_boundry.radius = PlayerSettings::RADIUS;
     m_boundry.shape = Shape::circle;
+    setPosition(_startPos);
 }
 
 Player::~Player(){

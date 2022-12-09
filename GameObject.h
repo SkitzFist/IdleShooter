@@ -12,10 +12,10 @@ public:
     virtual void update(const float _dt) = 0;
     virtual void draw() const = 0;
     virtual void onCollision(GameObject* _other) = 0;
-    virtual const float getRadius() const = 0;
+    virtual const float getLargestRadius() const = 0;
     const Boundry& getBoundry() const { return m_boundry; }
 protected:
-    GameObject(){};
+    GameObject():m_boundry(){};
     Boundry m_boundry;
 private:
     Vec2<float> m_position;

@@ -1,9 +1,11 @@
 #pragma once
 #ifndef _Entity
 #define _Entity
+
+#include "Array.h"
 #include "GameObject.h"
 #include "BodyPart.h"
-#include "Array.h"
+#include "AiMovement.h"
 
 /*
     Potentially this could be named spaceship
@@ -18,9 +20,11 @@ public:
     virtual void draw() const override;
     virtual void onCollision(GameObject* _ohter) override {/*For subclasses*/};
     void equip(BodyPart* _body);
-    virtual const float getRadius() const override;
+    virtual void setMovementBehaviour(AiMovement* _movement);
+    virtual const float getLargestRadius() const override;
 private:
     Array<BodyPart*> m_bodies;
+    AiMovement* m_movement;
 };
 
 #endif
