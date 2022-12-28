@@ -8,6 +8,10 @@ namespace Lerp
        return (target - startPos) * time + startPos;
     }
 
+    static constexpr const float linear(float time){
+        return time;
+    }
+
     static constexpr const float smoothStop(float time){
         float x = 1.f - time;
         return 1.f - (x * x);

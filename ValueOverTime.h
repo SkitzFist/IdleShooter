@@ -13,12 +13,14 @@ public:
     T m_startValue;
     T m_endValue;
     std::chrono::steady_clock::time_point m_startPoint;
+    const float (*lerpPtr)(float);
     
-    ValueOverTime(const T& _startValue, const T& _endValue, const float _durationInMS){
+    ValueOverTime(const T& _startValue, const T& _endValue, const float _durationInMS, const float(*_lerpPtr)(float)){
         m_startPoint = std::chrono::steady_clock::now();
         m_startValue = _startValue;
         m_endValue = _endValue;
         m_duration = _durationInMS;
+        lerpPtr = _lerpPtr;
     }
 
     virtual const T& getValue() const override{
@@ -27,7 +29,7 @@ public:
         if(elapsed >= m_duration){
             return m_endValue;
         }else{
-            float time = elapsed / m_duration;
+            float time = lerpPtr(elapsed / m_duration);
             return std::move(static_cast<T>(Lerp::lerp(time, m_startValue, m_endValue)));   
         }
     }
