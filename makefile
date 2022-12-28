@@ -8,10 +8,10 @@ SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:%.cpp=$(OBJDIR)%.o)
 DEPS := $(SRCS:%.cpp=$(DEPDIR)%.d)
 
-CFLAGS := -03 -sASSERTIONS -Wall -I include/ -L lib/ -lraylib -s USE_GLFW=3 -s ASYNCIFY -DPLATFORM_WEB
+CFLAGS := -03 -sASSERTIONS -Wall -I include/ -L lib/ -lraylib -s USE_GLFW=3 -s -sFULL_ES2 -s ASYNCIFY -sFORCE_FILESYSTEM --shell-file shell\Shell.html -DPLATFORM_WEB
 
 $(TARGET) : $(OBJS)
-	em++  $^ -o $@ $(CFLAGS)
+	em++ -lembind  $^ -o $@ $(CFLAGS)
 
 $(OBJDIR)%.o : %.cpp $(DEPDIR)%.d | $(DEPDIR)
 	em++ -MMD -MT $@ -MP -MF $(DEPDIR)$*.d -o $@ -c $<
