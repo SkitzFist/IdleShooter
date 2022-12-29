@@ -15,6 +15,30 @@ public:
     std::chrono::steady_clock::time_point m_startPoint;
     const float (*lerpPtr)(float);
     
+    virtual ~ValueOverTime() override{
+
+    }
+
+    virtual const bool shouldReset() const override{
+        if(getValue() >= m_endValue){
+            return true;
+        }
+        return false;
+    }
+
+    virtual void reset() override{
+        m_startPoint = std::chrono::steady_clock::now();
+    }
+/*
+    virtual void operator=(ValueOverTime<T>* _other){
+        m_duration = _other->m_duration;
+        m_startValue = _other->m_startValue;
+        m_endValue = _other->endValue;
+        m_startPoint = std::chrono::steady_clock::now();
+        lerpPtr = _other->lerpPtr;
+    }
+*/
+
     ValueOverTime(const T& _startValue, const T& _endValue, const float _durationInMS, const float(*_lerpPtr)(float)){
         m_startPoint = std::chrono::steady_clock::now();
         m_startValue = _startValue;
