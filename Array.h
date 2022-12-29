@@ -17,6 +17,8 @@ public:
     void add(const T& item);
     void add(T&& item);
 
+    void remove(const int& _index);
+
     const T& operator[](unsigned int _index) const;
     T& operator[](unsigned int _index);
     void clear();
@@ -71,6 +73,16 @@ void Array<T>::add(T&& item){
         reallocate(newCapacity);
     }
     m_data[m_size++] = std::move(item);
+    }
+
+template <class T>
+void Array<T>::remove(const int& _index){
+    if(!(_index >= 0 && _index < m_size)){
+        return;
+    }
+    m_data[_index].~T();
+    m_data[_index] = m_data[--m_size];
+    m_data[m_size] = NULL;
 }
 
 template <class T>
