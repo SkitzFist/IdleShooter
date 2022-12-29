@@ -15,12 +15,22 @@ public:
     std::chrono::steady_clock::time_point m_startPoint;
     const float (*lerpPtr)(float);
     
+    ValueOverTime(const T& _startValue, const T& _endValue, const float _durationInMS, const float(*_lerpPtr)(float)){
+        m_startPoint = std::chrono::steady_clock::now();
+        m_startValue = _startValue;
+        m_endValue = _endValue;
+        m_duration = _durationInMS;
+        lerpPtr = _lerpPtr;
+    }
+
     virtual ~ValueOverTime() override{
 
     }
 
     virtual const bool shouldReset() const override{
-        if(getValue() >= m_endValue){
+        std::chrono::steady_clock::time_point endPoint = std::chrono::steady_clock::now();
+        float elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(endPoint - m_startPoint).count();
+        if(elapsed >= m_duration){
             return true;
         }
         return false;
@@ -38,14 +48,6 @@ public:
         lerpPtr = _other->lerpPtr;
     }
 */
-
-    ValueOverTime(const T& _startValue, const T& _endValue, const float _durationInMS, const float(*_lerpPtr)(float)){
-        m_startPoint = std::chrono::steady_clock::now();
-        m_startValue = _startValue;
-        m_endValue = _endValue;
-        m_duration = _durationInMS;
-        lerpPtr = _lerpPtr;
-    }
 
     virtual const T& getValue() const override{
         std::chrono::steady_clock::time_point endPoint = std::chrono::steady_clock::now();
