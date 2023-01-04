@@ -17,7 +17,7 @@ public:
     Entity();
     ~Entity();
     virtual void update(const float _dt) override;
-    virtual void draw() const override;
+    virtual void render() const override;
     virtual void onCollision(GameObject* _ohter) override {/*For subclasses*/};
     void equip(BodyPart* _body);
     virtual void setMovementBehaviour(AiMovement* _movement);

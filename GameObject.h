@@ -10,7 +10,7 @@ public:
     virtual void setPosition(const Vec2<float>& _newPos);
     const Vec2<float>& getPositon() const;
     virtual void update(const float _dt) = 0;
-    virtual void draw() const = 0;
+    virtual void render() const = 0;
     virtual void onCollision(GameObject* _other) = 0;
     virtual const float getLargestRadius() const = 0;
     const Boundry& getBoundry() const { return m_boundry; }

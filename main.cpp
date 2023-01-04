@@ -72,5 +72,6 @@ void render(){
         if(state){
             state->render();
         }
+        DrawFPS(10,10);
     EndDrawing();
 }

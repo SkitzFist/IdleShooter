@@ -2,21 +2,43 @@
 #ifndef _Particle
 #define _Particle
 
+#include <chrono>
+
 #include "Vec2.h"
 #include "ColorStruct.h"
+#include "Value.h"
 
 class Particle{
 public:
-    Particle(const Vec2<float>& _pos, const float& _speed, 
-    const Vec2<float>& _direction, const float& _size, Color _color = RAYWHITE);
+    Particle(const Vec2<float>& _pos, Value<float>* _speed, 
+            const Vec2<float>& _direction, Value<float>* _size, 
+            const int& _lifeTimeInMS = 5000, Color _color = RAYWHITE);
+    Particle(const Vec2<float>& _pos);
+    ~Particle();
     void update(const float _dt);
+    const bool canRemove() const;
     void render() const;
-private:
-    Vec2<float> m_position;
-    float m_speed;
-    Vec2<float> m_direction;
-    float m_size;
+    
+    void setColor(const Color& _color);
+    void setPosition(const Vec2<float>& _pos);
+    void setDirection(const float& _angle);
+    void setDirection(const Vec2<float>& _dir);
+    void setSpeed(Value<float>* _speed);
+    void setSpeed(const float& _speed);
+    void setSize(Value<float>* _size);
+    void setSize(const float& _size);
+    void setLifeTime(const float _lifeTimeInMS);
+    
+    //Debug move to private
     ColorStruct m_color;
+    Vec2<float> m_position;
+    Vec2<float> m_direction;
+    Value<float>* m_speed;
+    Value<float>* m_size;
+    int m_lifeTimeInMS;
+    std::chrono::steady_clock::time_point m_startTimeStamp;
+private:
+
 };
 
 #endif

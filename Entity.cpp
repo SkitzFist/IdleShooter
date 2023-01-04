@@ -23,9 +23,9 @@ void Entity::update(const float _dt){
     }
 }
 
-void Entity::draw() const{
+void Entity::render() const{
     for(int i = 0; i < m_bodies.size(); ++i){
-        m_bodies[i]->draw();
+        m_bodies[i]->render();
     }
 }
 

@@ -40,7 +40,7 @@ void SquareBodyPart::onCollision(GameObject* _other){
     
 }
 
-void SquareBodyPart::draw()const{
+void SquareBodyPart::render()const{
     DrawRectanglePro(rec, Vector2{rec.width / 2.f, rec.height / 2.f}, m_boundry.angle, GREEN);
     DrawRectanglePro(rec, Vector2{rec.width / 2.f, rec.height / 2.f}, (-m_boundry.angle - 45.f), GREEN); 
 }

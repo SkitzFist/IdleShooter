@@ -14,7 +14,7 @@ public:
     virtual void update(const float _dt) override;
     virtual void onEquip(Entity* _entity) override;
     virtual void onCollision(GameObject* _other) override;
-    virtual void draw() const override;
+    virtual void render() const override;
 
 private:
     Entity* m_entity;
