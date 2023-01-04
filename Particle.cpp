@@ -4,22 +4,13 @@
 //debug
 #include "Log.h"
 
-Particle::Particle(const Vec2<float>& _pos, Value<float>* _speed, 
-            const Vec2<float>& _direction, Value<float>* _size, 
-            const int& _lifeTimeInMS, Color _color):
-    m_position(_pos), m_direction(_direction), 
-    m_lifeTimeInMS(_lifeTimeInMS),m_color(_color){
-    m_speed = _speed->copy();
-    m_size = _speed->copy();
-    m_startTimeStamp = std::chrono::steady_clock::now();
-}
-
 Particle::Particle(const Vec2<float>& _pos):
     m_color(RAYWHITE), m_position(_pos){
     m_direction = {1.f,1.f};
     m_lifeTimeInMS = 1000;
     m_speed = nullptr;
     m_size = nullptr;
+    m_startTimeStamp = std::chrono::steady_clock::now();
 }
 
 Particle::~Particle(){
@@ -28,11 +19,9 @@ Particle::~Particle(){
 }
 
 void Particle::update(const float _dt){
-    if(m_speed){
-        m_position = m_position + (m_direction * m_speed->getValue()) * _dt;
-    }else{
-        Log::info("speed not initiated");
-    }
+    float speed = m_speed->getValue();
+    m_position = m_position + ((m_direction * speed) * _dt);
+    
 }
 
 const bool Particle::canRemove() const{
@@ -49,12 +38,8 @@ const bool Particle::canRemove() const{
 }
 
 void Particle::render()const{
-    if(m_size){
-        DrawCircle(m_position.x, m_position.y, m_size->getValue(), m_color.toColor());
-    }else{
-        Log::info("Size not initiated");
-    }
-    
+    float size = m_size->getValue();
+    DrawCircle(m_position.x, m_position.y, size, m_color.toColor());
 }
 
 void Particle::setColor(const Color& _color){
@@ -70,7 +55,7 @@ void Particle::setDirection(const float& _angle){
             speed * cosf(_angle),
             speed * sinf(_angle)
         };
-        m_direction = direction.normalize(); //might need to move it
+        m_direction = direction.normalize();
     }
 }
 void Particle::setDirection(const Vec2<float>& _dir){

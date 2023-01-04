@@ -2,6 +2,7 @@
 
 //debug
 #include "Log.h"
+#include "Random.h"
 
 ParticleEmitter::ParticleEmitter(Value<int>* _numberOfParticles, Value<float>* _speed,
 Value<float>* _angle, float _timeBetweenEmits, Value<int>* _particleLifeTimeInMS,
@@ -25,59 +26,70 @@ ParticleEmitter::~ParticleEmitter(){
     delete m_particleSize;
 }
 
-/*
+Array<Particle*> tracedParticles(10);
+Timer tracedTimer(0.1f);
+void printTraced(){
+    for(int i = 0; i < tracedParticles.size(); ++i){
+        Particle* p = tracedParticles[i];
+        if(p->canRemove()){
+            tracedParticles[i] = nullptr;
+        }
+        if(p){
+            Log::info("P["+std::to_string(i)+"]: ");
+            Log::vector("\tPos", p->m_position);
+            Log::vector("\tdir", p->m_direction);
+            Log::info("\tlifetime: " + std::to_string(p->m_lifeTimeInMS));
+            if(p->m_speed){
+                Log::info("\tSpeed: " + std::to_string(p->m_speed->getValue()));
+            }else{
+                Log::info("\tspeed not init");
+            }
+            if(p->m_size){
+                Log::info("\tSize: " + std::to_string(p->m_size->getValue()));
+            }else{
+                Log::info("\tSize not init");
+            }
+            Log::info("timestamp: " + std::to_string(p->m_startTimeStamp.time_since_epoch().count()));
+        }        
+    }
+}
+
+
 void ParticleEmitter::emit(const Vec2<float>& _startPos){
-    
     for(int i = 0; i < m_numberOfParticles->getValue(); ++i){
         Particle* particle = new Particle(_startPos);
 
-        float angle = m_angle->getValue();
-        Vec2<float> direction = {
-            cosf(angle),
-            sinf(angle)
-        };
+        Vec2<float> direction = {Random::FLOAT(-0.8f, 0.8f), Random::FLOAT(0, 1)};
         particle->setDirection(direction);
 
         if(m_particleSpeedValueToggle){
             particle->setSpeed(m_speed);
         }else{
-            particle->setSpeed(std::move(m_speed->getValue()));
+            float speed = m_speed->getValue();
+            particle->setSpeed(speed);
         }
 
         if(m_particleSizeValueToggle){
             particle->setSize(m_particleSize);
         }else{
-            particle->setSize(std::move(m_particleSize->getValue()));
+            float size = m_particleSize->getValue();
+            particle->setSize(size);
         }
 
-        particle->setLifeTime(std::move(m_particleLifeTimeInMs->getValue()));
+        int lifeTime = m_particleLifeTimeInMs->getValue();
+        particle->setLifeTime(lifeTime);
 
         m_particles.add(particle);
+        static int max = 1;
+        static int counter = 0;
+        if(i == 0 && counter < max){
+            ++counter;
+            tracedParticles.add(particle);
+        }
     }
 
     m_timeBetweenEmits.reset();
 }
-*/
-
-
-//TODO:: needs to overload emit, delay between shots.
-void ParticleEmitter::emit(const Vec2<float>& _startPos){
-    for(int i = 0; i < m_numberOfParticles->getValue(); ++i){
-        float speed = m_speed->getValue();
-        float x = speed * cosf(m_angle->getValue());
-        float y = speed * sinf(m_angle->getValue());
-        int lifeTime = m_particleLifeTimeInMs->getValue();
-        Vec2<float> direction(x,y);
-        Vec2<float> normalizedDirection = direction.normalize();
-        Particle* p = new Particle(
-            _startPos, m_speed, direction,
-            m_particleSize, lifeTime
-        );
-        m_particles.add(p);
-    }
-    m_timeBetweenEmits.reset();
-}
-
 
 const bool ParticleEmitter::canEmit() const{
     return m_timeBetweenEmits.isFinished();
@@ -93,6 +105,14 @@ void ParticleEmitter::reset(){
 
 void ParticleEmitter::update(const float _dt){
     m_timeBetweenEmits.update(_dt);
+    tracedTimer.update(_dt);
+
+    if(tracedTimer.isFinished()){
+        if(tracedParticles.size() > 0){
+            printTraced();
+        }
+        tracedTimer.reset();
+    }
 
     for(int i = 0; i < m_particles.size(); ++i){
         m_particles[i]->update(_dt);

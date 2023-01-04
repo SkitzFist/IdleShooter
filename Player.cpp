@@ -28,26 +28,26 @@ void Player::update(const float _dt){
 }
 
 void Player::render() const{
-    Entity::render();
     m_thrustEmitter->render();
-    DrawCircle(getPositon().x, getPositon().y, m_boundry.radius, RAYWHITE);
+    Entity::render();
+    DrawCircle(getPositon().x, getPositon().y, m_boundry.radius, BLUE);
 }
 
 void Player::initThrustEmitter(){
 
-    float duration = 500.f;
-    ValueRandom<int>* nrOfParticlesPerEmit = new ValueRandom(2,5);
-    ValueOverTime<float>* particleSpeed = new ValueOverTime(
-        4.f, 1.f, duration, Lerp::smoothStart3
+    float duration = 450.f;
+    Value<int>* nrOfParticlesPerEmit = new ValueRandom(3,10);
+    Value<float>* particleSpeed = new ValueOverTime(
+        100.f, 1.f, duration, Lerp::smoothStep
     );
 
-    float angleMin =PI + (PI / 2.f);
-    float angleMax = angleMin + (PI);
+    float angleMin =PI + (PI/2.f); //Debug
+    float angleMax = PI*2.f; //Debug
 
-    ValueRandom<float>* angle = new ValueRandom(-angleMin,-angleMax);
-    ValueSingle<int>* particleLifeTime = new ValueSingle(static_cast<int>(duration) + 200);
-    ValueOverTime<float>* particleSize = new ValueOverTime(
-        3.5f, 0.f, duration, Lerp::smoothStart
+    Value<float>* angle = new ValueRandom(-angleMin,-angleMax);
+    Value<int>* particleLifeTime = new ValueSingle(static_cast<int>(duration) + 200);
+    Value<float>* particleSize = new ValueOverTime(
+        2.5f, 0.f, duration, Lerp::smoothStart3
     );
     m_thrustEmitter = new ParticleEmitter(
         nrOfParticlesPerEmit,

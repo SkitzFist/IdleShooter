@@ -10,9 +10,6 @@
 
 class Particle{
 public:
-    Particle(const Vec2<float>& _pos, Value<float>* _speed, 
-            const Vec2<float>& _direction, Value<float>* _size, 
-            const int& _lifeTimeInMS = 5000, Color _color = RAYWHITE);
     Particle(const Vec2<float>& _pos);
     ~Particle();
     void update(const float _dt);
