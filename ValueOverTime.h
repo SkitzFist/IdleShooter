@@ -39,15 +39,6 @@ public:
     virtual void reset() override{
         m_startPoint = std::chrono::steady_clock::now();
     }
-/*
-    virtual void operator=(ValueOverTime<T>* _other){
-        m_duration = _other->m_duration;
-        m_startValue = _other->m_startValue;
-        m_endValue = _other->endValue;
-        m_startPoint = std::chrono::steady_clock::now();
-        lerpPtr = _other->lerpPtr;
-    }
-*/
 
     virtual const T& getValue() const override{
         std::chrono::steady_clock::time_point endPoint = std::chrono::steady_clock::now();
@@ -58,6 +49,10 @@ public:
             float time = lerpPtr(elapsed / m_duration);
             return std::move(static_cast<T>(Lerp::lerp(time, m_startValue, m_endValue)));   
         }
+    }
+
+    virtual Value<T>* copy() override{
+        return new ValueOverTime<T>(m_startValue, m_endValue, m_duration, lerpPtr);
     }
 };
 
