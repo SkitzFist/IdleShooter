@@ -59,7 +59,8 @@ void ParticleEmitter::emit(const Vec2<float>& _startPos){
     for(int i = 0; i < m_numberOfParticles->getValue(); ++i){
         Particle* particle = new Particle(_startPos);
 
-        Vec2<float> direction = {Random::FLOAT(-0.8f, 0.8f), Random::FLOAT(0, 1)};
+        //need to get this value from outside
+        Vec2<float> direction = {Random::FLOAT(-1.f, 1.f), Random::FLOAT(0, 1)};
         particle->setDirection(direction);
 
         if(m_particleSpeedValueToggle){
