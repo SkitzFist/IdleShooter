@@ -14,13 +14,11 @@ in order to compile this project, you need to have emscripten version 3.1.24
     >***Run '.\emsdk activate 3.1.24 --permanent' if you want emsdk permanently activated with this version***
 
 
-##Compiling
+## Compiling  
+When emsdk is activated you can go ahead and compile using the projects own makefile.  
+when in the projects root folder type 'make'  
 
-When emsdk is activated you can go ahead and compile using the projects own makefile.
-
-when in the projects root folder type 'make'
-
-##Running
+## Running  
 The compilation will output three files
 * game.html
 * game.wasm
