@@ -3,7 +3,8 @@
 
 --WORK IN PROGRESS--
 
-## Emscripten 3.1.24
+## Emscripten 3.1.24  
+in order to compile this project, you need to have emscripten version 3.1.24
 
 1. git clone https://github.com/emscripten-core/emsdk.git  
 2. cd emsdk  
