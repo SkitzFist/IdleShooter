@@ -3,7 +3,7 @@
 
 --WORK IN PROGRESS--
 
-##Emscripten version: 3.1.24
+## Emscripten 3.1.24
 
 git clone https://github.com/emscripten-core/emsdk.git
 
