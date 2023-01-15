@@ -6,32 +6,44 @@
 #include "Vec2.h"
 
 template <class T>
-class Value2<T>{
+class Value2{
 public:
-    Value<T>* x;
-    Value<T>* y;
-
     Value2(Value<T>* _x, Value<T>* _y){
         m_x = _x->copy();
         m_y = _y->copy();
     }
 
     ~Value2(){
-        if(x){
+        if(m_x){
             delete m_x;
         }
 
-        if(y){
+        if(m_y){
             delete m_y;
         }
     }
-
+    
     const Vec2<T>& getValue() const{
-        return std::move(Vec2<T>(x->getValue(), y->getValue()));
+        return std::move(Vec2<T>(m_x->getValue(), m_y->getValue()));
+    }
+
+    void reset(){
+        m_x->reset();
+        m_y->reset();
+    }
+
+    void shouldReset(){
+        if(m_x->shouldReset()){
+            m_x->reset();
+        }
+        if(m_y->shouldReset()){
+            m_y->reset();
+        }
     }
 
 private:
-
+    Value<T>* m_x;
+    Value<T>* m_y;
 }; 
 
 #endif
