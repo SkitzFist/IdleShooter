@@ -3,7 +3,7 @@
 #define _Player
 
 #include "Entity.h"
-#include "ParticleEmitter.h"
+#include "AnimationThruster.h"
 
 class Player : public Entity{
 public:
@@ -13,8 +13,6 @@ public:
     virtual void render() const override;
 
 private:
-    ParticleEmitter* m_thrustEmitter;
-
-    void initThrustEmitter();
+    AnimationThruster m_animationThruster;
 };
 #endif
