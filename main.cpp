@@ -1,19 +1,12 @@
 #include "include/emscripten.h"
 
-//Settings
 #include "Settings.h"
-
-//Util
-#include "Array.h"
-
-//objects
-#include "Player.h"
+#include "Log.h"
 
 //States
 #include "TestState.h"
-
-//Globals
 GameState* state = nullptr;
+
 
 //Functions
 void init();
@@ -23,12 +16,11 @@ void handleInput();
 void update();
 void render();
 
-//Debu 
-#include <string>
 
 int main(void){
     init();
     emscripten_set_main_loop(run, 0, 1);
+    return 0; //this code won't execute due to emscripten.
 }
 
 void init(){
@@ -38,11 +30,9 @@ void init(){
 
 void destroy(){
     emscripten_cancel_main_loop();
-    std::string str = "Main loop cancelled";
-    TraceLog(LOG_INFO, str.c_str());
+    Log::info("Main loop canceled");
     CloseWindow();
-    str = "Window closed";
-    TraceLog(LOG_INFO, str.c_str());
+    Log::info("Window closed");
 }
 
 void run(){
