@@ -11,7 +11,7 @@ class ParticleEmitter{
 public:
     ParticleEmitter(Value<int>* _numberOfParticles, Value<float>* _speed,
     Value2<float>* _direction, const float& _timeBetweenEmits, Value<int>* _particleLifeTimeInMS,
-    Value<float>* _particleSize);
+    Value<float>* _particleSize, ValueColor* _color);
     ~ParticleEmitter();
     void emit(const Vec2<float>& _startPos);
     const bool canEmit() const;
@@ -32,6 +32,7 @@ private:
     Value<int>* m_particleLifeTimeInMs;
     Value<float>* m_particleSize;
     bool m_particleSizeValueToggle;
+    ValueColor* m_color;
 };
 
 #endif

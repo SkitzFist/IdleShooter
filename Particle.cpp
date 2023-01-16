@@ -3,7 +3,7 @@
 #include "ValueSingle.h"
 
 Particle::Particle(const Vec2<float>& _pos):
-    m_color(RAYWHITE), m_position(_pos){
+    m_position(_pos){
     m_direction = {1.f,1.f};
     m_lifeTimeInMS = 1000;
     m_speed = nullptr;
@@ -14,6 +14,7 @@ Particle::Particle(const Vec2<float>& _pos):
 Particle::~Particle(){
     delete m_speed;
     delete m_size;
+    delete m_color;
 }
 
 void Particle::update(const float _dt){
@@ -36,11 +37,11 @@ const bool Particle::canRemove() const{
 
 void Particle::render()const{
     float size = m_size->getValue();
-    DrawCircle(m_position.x, m_position.y, size, m_color.toColor());
+    DrawCircle(m_position.x, m_position.y, size, m_color->getColor());
 }
 
-void Particle::setColor(const Color& _color){
-    m_color = _color;
+void Particle::setColor(ValueColor* _color){
+    m_color = _color->copy();
 }
 void Particle::setPosition(const Vec2<float>& _pos){
     m_position = _pos;

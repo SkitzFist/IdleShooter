@@ -4,8 +4,12 @@
 
 namespace Lerp
 {
-    static constexpr const float lerp(float time, float startPos, float target){
-       return (target - startPos) * time + startPos;
+    static constexpr const float lerp(float time, float startValue, float endValue){
+       return (endValue - startValue) * time + startValue;
+    }
+
+    static constexpr const unsigned char lerp(float time, unsigned char startValue, unsigned char endValue){
+        return (endValue - startValue) * time + startValue;
     }
 
     static constexpr const float linear(float time){

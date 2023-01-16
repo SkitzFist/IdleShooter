@@ -6,7 +6,7 @@
 
 ParticleEmitter::ParticleEmitter(Value<int>* _numberOfParticles, Value<float>* _speed,
 Value2<float>* _direction, const float& _timeBetweenEmits, Value<int>* _particleLifeTimeInMS,
-Value<float>* _particleSize):
+Value<float>* _particleSize, ValueColor* _color):
     m_timeBetweenEmits(_timeBetweenEmits), m_particles(25), m_particleSizeValueToggle(true),
     m_particleSpeedValueToggle(true){
     
@@ -15,6 +15,7 @@ Value<float>* _particleSize):
     m_direction = _direction;
     m_particleLifeTimeInMs = _particleLifeTimeInMS;
     m_particleSize = _particleSize;
+    m_color = _color;
 }
 
 ParticleEmitter::~ParticleEmitter(){
@@ -24,6 +25,7 @@ ParticleEmitter::~ParticleEmitter(){
     delete m_direction;
     delete m_particleLifeTimeInMs;
     delete m_particleSize;
+    delete m_color;
 }
 
 void ParticleEmitter::emit(const Vec2<float>& _startPos){
@@ -48,6 +50,8 @@ void ParticleEmitter::emit(const Vec2<float>& _startPos){
 
         int lifeTime = m_particleLifeTimeInMs->getValue();
         particle->setLifeTime(lifeTime);
+
+        particle->setColor(m_color);
 
         m_particles.add(particle);
     }

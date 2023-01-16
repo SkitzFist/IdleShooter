@@ -5,7 +5,7 @@
 #include <chrono>
 
 #include "Vec2.h"
-#include "ColorStruct.h"
+#include "ValueColor.h"
 #include "Value.h"
 
 class Particle{
@@ -16,7 +16,7 @@ public:
     const bool canRemove() const;
     void render() const;
     
-    void setColor(const Color& _color);
+    void setColor(ValueColor* _color);
     void setPosition(const Vec2<float>& _pos);
     void setDirection(const float& _angle);
     void setDirection(const Vec2<float>& _dir);
@@ -27,7 +27,7 @@ public:
     void setLifeTime(const float _lifeTimeInMS);
     
 private:
-    ColorStruct m_color;
+    ValueColor* m_color;
     Vec2<float> m_position;
     Vec2<float> m_direction;
     Value<float>* m_speed;
