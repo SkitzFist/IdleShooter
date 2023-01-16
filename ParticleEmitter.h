@@ -5,12 +5,12 @@
 #include "Particle.h"
 #include "Timer.h"
 #include "Array.h"
-#include "Value.h"
+#include "Value2.h"
 
 class ParticleEmitter{
 public:
     ParticleEmitter(Value<int>* _numberOfParticles, Value<float>* _speed,
-    Value<float>* _direction, float _timeBetweenEmits, Value<int>* _particleLifeTimeInMS,
+    Value2<float>* _direction, const float& _timeBetweenEmits, Value<int>* _particleLifeTimeInMS,
     Value<float>* _particleSize);
     ~ParticleEmitter();
     void emit(const Vec2<float>& _startPos);
@@ -19,8 +19,8 @@ public:
     void update(const float _dt);
     void render() const;
 
-    void setParticleSpeedValueTogge(const bool& _value);
-    void setParticleSizeValueTogge(const bool& _value);
+    void setParticleSpeedValueToggle(const bool& _value);
+    void setParticleSizeValueToggle(const bool& _value);
 
 private:
     Timer m_timeBetweenEmits;
@@ -28,7 +28,7 @@ private:
     Value<int>* m_numberOfParticles;
     Value<float>* m_speed;
     bool m_particleSpeedValueToggle;
-    Value<float>* m_angle;
+    Value2<float>* m_direction;
     Value<int>* m_particleLifeTimeInMs;
     Value<float>* m_particleSize;
     bool m_particleSizeValueToggle;

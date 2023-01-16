@@ -1,8 +1,6 @@
 #include "Particle.h"
 #include "Settings.h"
 #include "ValueSingle.h"
-//debug
-#include "Log.h"
 
 Particle::Particle(const Vec2<float>& _pos):
     m_color(RAYWHITE), m_position(_pos){
@@ -20,8 +18,7 @@ Particle::~Particle(){
 
 void Particle::update(const float _dt){
     float speed = m_speed->getValue();
-    m_position = m_position + ((m_direction * speed) * _dt);
-    
+    m_position = m_position + ((m_direction * speed) * _dt);    
 }
 
 const bool Particle::canRemove() const{

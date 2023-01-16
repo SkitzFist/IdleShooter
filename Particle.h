@@ -26,7 +26,7 @@ public:
     void setSize(const float& _size);
     void setLifeTime(const float _lifeTimeInMS);
     
-    //Debug move to private
+private:
     ColorStruct m_color;
     Vec2<float> m_position;
     Vec2<float> m_direction;
@@ -34,8 +34,6 @@ public:
     Value<float>* m_size;
     int m_lifeTimeInMS;
     std::chrono::steady_clock::time_point m_startTimeStamp;
-private:
-
 };
 
 #endif
